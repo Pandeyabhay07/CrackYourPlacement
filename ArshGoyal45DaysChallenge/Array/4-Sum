@@ -1,0 +1,30 @@
+class Solution {
+public:
+    vector<vector<int>> fourSum(vector<int>& nums, int target) {
+        vector<vector<int>>ans;
+        int mod=1e9+7;
+        set<vector<int>>st;
+        sort(nums.begin(),nums.end());
+        
+        for(int i=0;i<nums.size();i++){
+            for(int j=i+1;j<nums.size();j++){
+                int k=j+1;
+                int r=nums.size()-1;
+                while(k<r){
+                    long long sum=((nums[i]+nums[j])%mod+(nums[k]+nums[r])%mod)%mod;
+                    if(sum==target)
+                        st.insert({nums[i],nums[j],nums[k++],nums[r--]});
+                    else if(sum<target)
+                        k++;
+                    else
+                        r--;
+                }
+            }
+        }
+        
+        for(auto i:st){
+            ans.push_back(i);
+        }
+        return ans;
+    }
+};
